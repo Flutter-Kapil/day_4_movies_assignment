@@ -16,7 +16,8 @@ class MyMovies extends StatefulWidget {
 
 class _MyMoviesState extends State<MyMovies> {
   String moviesList = MoviesList.moviesJsonList;
-  String link = "";
+  String link =
+      "https://raw.githubusercontent.com/android10/Sample-Data/master/Android-CleanArchitecture-Kotlin/posters/038001.jpg";
   int moviesNumber = 0;
   @override
   Widget build(BuildContext context) {
