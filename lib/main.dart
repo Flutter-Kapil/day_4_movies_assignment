@@ -4,6 +4,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 //import 'dart:io';
 import 'dart:convert';
 
+import 'package:flutter/widgets.dart';
+
 void main() {
   Widget _cr() {
     return CarouselSlider(
@@ -60,23 +62,23 @@ class _MyMoviesState extends State<MyMovies> {
           ),
           body: Center(
             child: CarouselSlider(
-                enlargeCenterPage: true,
+                height: 700,
+                aspectRatio: 16 / 9,
                 items: posterList.map((i) {
                   return Builder(
                     builder: (BuildContext context) {
                       return Container(
-                          height: 600,
-//                          width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.symmetric(horizontal: 16.0),
-                          decoration: BoxDecoration(color: Colors.yellow),
+//                          width: 500,
+//                            height: 900,
+                          constraints: BoxConstraints.expand(),
+                          color: Colors.yellow,
                           child: Image(
                             image: NetworkImage(i),
-                            fit: BoxFit.cover,
+//                            fit: BoxFit.cover,
                           ));
                     },
                   );
                 }).toList(),
-//              height: 400.0,
                 autoPlay: true),
           )
 //        floatingActionButton: FloatingActionButton(
