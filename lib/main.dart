@@ -60,15 +60,18 @@ class _MyMoviesState extends State<MyMovies> {
           ),
           body: Center(
             child: CarouselSlider(
+                enlargeCenterPage: true,
                 items: posterList.map((i) {
-                  return new Builder(
+                  return Builder(
                     builder: (BuildContext context) {
-                      return new Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: new EdgeInsets.symmetric(horizontal: 5.0),
-                          decoration: new BoxDecoration(color: Colors.black87),
+                      return Container(
+                          height: 600,
+//                          width: MediaQuery.of(context).size.width,
+                          margin: EdgeInsets.symmetric(horizontal: 16.0),
+                          decoration: BoxDecoration(color: Colors.yellow),
                           child: Image(
                             image: NetworkImage(i),
+                            fit: BoxFit.cover,
                           ));
                     },
                   );
