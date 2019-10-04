@@ -1,9 +1,30 @@
 import 'package:day_4_movies_assignment/movies.dart';
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 //import 'dart:io';
 import 'dart:convert';
 
 void main() {
+  Widget _cr() {
+    return CarouselSlider(
+      height: 400.0,
+      items: [1, 2, 3, 4, 5].map((i) {
+        return Builder(
+          builder: (BuildContext context) {
+            return Container(
+                width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.symmetric(horizontal: 5.0),
+                decoration: BoxDecoration(color: Colors.amber),
+                child: Text(
+                  'text $i',
+                  style: TextStyle(fontSize: 16.0),
+                ));
+          },
+        );
+      }).toList(),
+    );
+  }
+
   runApp(MaterialApp(
     home: MyMovies(),
   ));
@@ -22,53 +43,39 @@ class _MyMoviesState extends State<MyMovies> {
   @override
   Widget build(BuildContext context) {
     List movies = jsonDecode(moviesList);
+    List<String> posterList = [];
+    movies.forEach((e) {
+      posterList.add(e['poster']);
+      //print(e['poster']);
+    });
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.black,
-        appBar: AppBar(
-          title: Text(
-            'Movies Poster',
-            style: TextStyle(color: Colors.black),
-          ),
-          backgroundColor: Colors.yellow,
-        ),
-        body: Container(
-          color: Colors.yellow.shade200,
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    flex: 10,
-                    child: Image(
-//                height: 300,
-//                width: 300,
-                      image: NetworkImage('$link'),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Card(
-                      color: Colors.yellow,
-                      child: FlatButton(
-                        child: Text('Next Movie'),
-                        onPressed: () {
-                          setState(() {
-                            link = movies[moviesNumber]['poster'];
-                            moviesNumber = moviesNumber + 1;
-                            if (moviesNumber == movies.length) moviesNumber = 0;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+          backgroundColor: Colors.black,
+          appBar: AppBar(
+            title: Text(
+              'Movies Poster',
+              style: TextStyle(color: Colors.black),
             ),
+            backgroundColor: Colors.yellow,
           ),
-        ),
+          body: Center(
+            child: CarouselSlider(
+                items: posterList.map((i) {
+                  return new Builder(
+                    builder: (BuildContext context) {
+                      return new Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: new EdgeInsets.symmetric(horizontal: 5.0),
+                          decoration: new BoxDecoration(color: Colors.black87),
+                          child: Image(
+                            image: NetworkImage(i),
+                          ));
+                    },
+                  );
+                }).toList(),
+//              height: 400.0,
+                autoPlay: true),
+          )
 //        floatingActionButton: FloatingActionButton(
 //          child: Icon(Icons.movie),
 //          onPressed: () {
@@ -79,7 +86,7 @@ class _MyMoviesState extends State<MyMovies> {
 //            });
 //          },
 //        ), // Use stateful widget you created here
-      ),
+          ),
     );
   }
 }
